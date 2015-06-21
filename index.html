@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/tomorrow-night-eighties.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
   <style>
-    .county-sel, .district-sel, .zipcode {
-      display: inline-block;
-      margin-right: 5px;
-    }
-
     .footer {
       text-align: center;
       margin: 20px auto;
@@ -62,7 +57,7 @@ var IntlTelInput = require('react-intl-tel-input');
 
 React.render(&lt;IntlTelInput preferredCountries={['tw']}
                            css={['intl-tel-input', 'form-control']}
-                           utilsScript={'assets/libphonenumber.js'} /&gt;,
+                           utilsScript={'libphonenumber.js'} /&gt;,
                            document.getElementById('content'));
 </code></pre>
 
@@ -94,7 +89,7 @@ var lookup = function (callback) {
 React.render(&lt;IntlTelInput defaultCountry={'auto'}
                            geoIpLookup={lookup}
                            css={['intl-tel-input', 'form-control']}
-                           utilsScript={'assets/libphonenumber.js'} /&gt;, document.getElementById('content'));
+                           utilsScript={'libphonenumber.js'} /&gt;, document.getElementById('content'));
 </code></pre>
 
         <h3>Validation callback</h3>
@@ -110,7 +105,7 @@ var check = function (status, value, countryData) {
 
 React.render(&lt;IntlTelInput validNumber={check}
                            css={['intl-tel-input', 'form-control']}
-                           utilsScript={'assets/libphonenumber.js'} /&gt;, document.getElementById('content'));
+                           utilsScript={'libphonenumber.js'} /&gt;, document.getElementById('content'));
 </code></pre>
 
         <hr>
@@ -214,20 +209,21 @@ React.render(&lt;IntlTelInput validNumber={check}
         <p>MIT License</p>
       </div>
     </div>
-  </div>
-  <div class="row footer">
-    <div class="col-md-12">
-      <ul class="list-inline">
-        <li><a href="https://github.com/patw0929/react-intl-tel-input" target="_blank">GitHub</a></li>
-        <li><a href="http://patw.me" target="_blank">@patw</a></li>
-      </ul>
+    <div class="row footer">
+      <div class="col-md-12">
+        <ul class="list-inline">
+          <li><a href="https://github.com/patw0929/react-intl-tel-input" target="_blank">GitHub</a></li>
+          <li><a href="http://patw.me" target="_blank">@patw</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
+  <script src="https://fb.me/react-0.13.3.js"></script>
   <script>
     __REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__
   </script>
-  <script type="text/javascript" src="assets/main.js"></script>
+  <script type="text/javascript" src="assets/example.js"></script>
 
   <script>hljs.initHighlightingOnLoad();</script>
 </body>
