@@ -53,7 +53,8 @@
 
 var React = require('react');
 var IntlTelInput = require('react-intl-tel-input');
-
+require('file?name=libphonenumber.js!./node_modules/react-intl-tel-input/dist/libphonenumber.js');
+require('./node_modules/react-intl-tel-input/dist/styles/intlTelInput.scss');
 
 React.render(&lt;IntlTelInput preferredCountries={['tw']}
                            css={['intl-tel-input', 'form-control']}
@@ -67,6 +68,8 @@ React.render(&lt;IntlTelInput preferredCountries={['tw']}
 
 var React = require('react');
 var IntlTelInput = require('react-intl-tel-input');
+require('file?name=libphonenumber.js!./node_modules/react-intl-tel-input/dist/libphonenumber.js');
+require('./node_modules/react-intl-tel-input/dist/styles/intlTelInput.scss');
 
 var loadJSONP = function (url, callback) {
   var ref = window.document.getElementsByTagName( 'script' )[ 0 ];
@@ -98,6 +101,8 @@ React.render(&lt;IntlTelInput defaultCountry={'auto'}
 
 var React = require('react');
 var IntlTelInput = require('react-intl-tel-input');
+require('file?name=libphonenumber.js!./node_modules/react-intl-tel-input/dist/libphonenumber.js');
+require('./node_modules/react-intl-tel-input/dist/styles/intlTelInput.scss');
 
 var check = function (status, value, countryData) {
   console.log(status, value, countryData);
