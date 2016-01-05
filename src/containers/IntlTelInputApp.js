@@ -206,7 +206,7 @@ class IntlTelInputApp extends Component {
   notifyPhoneNumberChange(newNumber) {
     if (typeof this.props.onPhoneNumberChange === 'function') {
       let result = this.isValidNumber(newNumber);
-      this.props.onPhoneNumberChange(result, newNumber, this.selectedCountryData, this.getNumber(newNumber));
+      this.props.onPhoneNumberChange(result, newNumber, this.selectedCountryData, this.getNumber(newNumber), this.props.id);
     }
   }
 
