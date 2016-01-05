@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { initialState } from '../reducers/intlTelInputData';
 import AllCountries from '../components/AllCountries';
 import FlagDropDown from '../components/FlagDropDown';
 import TelInput from '../components/TelInput';
@@ -60,13 +61,18 @@ class IntlTelInputApp extends Component {
 
     this.tempCountry = this.props.defaultCountry;
 
+    // attach id to all actions
     this.dispatch = (action) => {
       action.id = this.props.id;
       this.props.dispatch(action);
     }
+
+    // initialize state
+    this.dispatch(intlTelInputActions.initialize());
   }
 
   static propTypes = {
+    id: PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     css: PropTypes.arrayOf(PropTypes.string),
     fieldName: PropTypes.string,
     value: PropTypes.string,
@@ -1001,8 +1007,9 @@ class IntlTelInputApp extends Component {
 }
 
 function select(state, props) {
+  // provide initialState before the component can initialize it itself
   return {
-    intlTelInputData: state.intlTelInputData[props.id]
+    intlTelInputData: state.intlTelInputData[props.id] || initialState
   };
 }
 

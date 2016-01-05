@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-let initialState = {
+export const initialState = {
   countryList: {
     showDropdown: false,
     highlightedCountry: 0
@@ -15,19 +15,25 @@ let initialState = {
   countryCode: 'us'
 };
 
-export default function intlTelInputReducer(state = initialState, action) {
+export default function intlTelInputReducer(state = {}, action) {
   switch (action.type) {
+  case types.INITIALIZE:
+    return {
+      ...state,
+      [action.id]: initialState
+    };
+
   case types.GET_PROPS_DATA:
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         telInput: {
           value: action.data.telInput.value,
-          disabled: state.telInput.disabled,
-          readonly: state.telInput.readonly,
-          offsetTop: state.telInput.offsetTop,
-          outerHeight: state.telInput.outerHeight
+          disabled: state[action.id].telInput.disabled,
+          readonly: state[action.id].telInput.readonly,
+          offsetTop: state[action.id].telInput.offsetTop,
+          outerHeight: state[action.id].telInput.outerHeight
         },
         countryCode: action.data.countryCode
       }
@@ -37,7 +43,7 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
           highlightedCountry: action.data.countryList.highlightedCountry
@@ -49,7 +55,7 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
           highlightedCountry: action.data.countryList.highlightedCountry
@@ -61,7 +67,7 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
           highlightedCountry: action.data.countryList.highlightedCountry
@@ -74,7 +80,7 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
           highlightedCountry: action.data.countryList.highlightedCountry
@@ -86,10 +92,10 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         }
       }
     };
@@ -98,10 +104,10 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         }
       }
     };
@@ -110,17 +116,17 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         },
         telInput: {
           value: action.data.telInput.value,
-          disabled: state.telInput.disabled,
-          readonly: state.telInput.readonly,
-          offsetTop: state.telInput.offsetTop,
-          outerHeight: state.telInput.outerHeight
+          disabled: state[action.id].telInput.disabled,
+          readonly: state[action.id].telInput.readonly,
+          offsetTop: state[action.id].telInput.offsetTop,
+          outerHeight: state[action.id].telInput.outerHeight
         }
       }
     };
@@ -129,10 +135,10 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         },
         countryCode: action.data.countryCode
       }
@@ -142,10 +148,10 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         }
       }
     };
@@ -154,15 +160,15 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         countryList: {
           showDropdown: action.data.countryList.showDropdown,
-          highlightedCountry: state.countryList.highlightedCountry
+          highlightedCountry: state[action.id].countryList.highlightedCountry
         },
         telInput: {
-          value: state.telInput.value,
-          disabled: state.telInput.disabled,
-          readonly: state.telInput.readonly,
+          value: state[action.id].telInput.value,
+          disabled: state[action.id].telInput.disabled,
+          readonly: state[action.id].telInput.readonly,
           offsetTop: action.data.telInput.offsetTop,
           outerHeight: action.data.telInput.outerHeight
         }
@@ -173,13 +179,13 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         telInput: {
           value: action.data.telInput.value,
-          disabled: state.telInput.disabled,
-          readonly: state.telInput.readonly,
-          offsetTop: state.telInput.offsetTop,
-          outerHeight: state.telInput.outerHeight
+          disabled: state[action.id].telInput.disabled,
+          readonly: state[action.id].telInput.readonly,
+          offsetTop: state[action.id].telInput.offsetTop,
+          outerHeight: state[action.id].telInput.outerHeight
         }
       }
     };
@@ -188,13 +194,13 @@ export default function intlTelInputReducer(state = initialState, action) {
     return {
       ...state,
       [action.id]: {
-        ...state.[action.id],
+        ...state[action.id],
         telInput: {
           value: action.data.telInput.value,
-          disabled: state.telInput.disabled,
-          readonly: state.telInput.readonly,
-          offsetTop: state.telInput.offsetTop,
-          outerHeight: state.telInput.outerHeight
+          disabled: state[action.id].telInput.disabled,
+          readonly: state[action.id].telInput.readonly,
+          offsetTop: state[action.id].telInput.offsetTop,
+          outerHeight: state[action.id].telInput.outerHeight
         }
       }
     };
