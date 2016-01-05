@@ -62,7 +62,8 @@ class DemoComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneNumber: ''
+      0: '',
+      1: ''
     };
   }
 
@@ -74,22 +75,31 @@ class DemoComponent extends React.Component {
     };
   }
 
-  changeHandler(isValid, value, countryData, number) {
-    console.log(isValid, value, countryData, number);
+  changeHandler(isValid, value, countryData, number, id) {
+    console.log(isValid, value, countryData, number, id);
     this.setState({
-      phoneNumber: value
+      [id]: value
     });
   }
 
   render() {
     return (
       <div>
-        <IntlTelInput onPhoneNumberChange={this.deplayedChangeHandler}
+        <IntlTelInput id={"0"}
+                      onPhoneNumberChange={this.deplayedChangeHandler}
                       defaultCountry={"auto"}
                       geoIpLookup={lookup}
                       css={['intl-tel-input', 'form-control']}
                       utilsScript={'assets/libphonenumber.js'} />
-        <div>Phone Number: {this.state.phoneNumber}</div>
+        <div>Phone Number: {this.state["0"]}</div>
+
+        <IntlTelInput id={1}
+                      onPhoneNumberChange={this.deplayedChangeHandler}
+                      defaultCountry={"auto"}
+                      geoIpLookup={lookup}
+                      css={['intl-tel-input', 'form-control']}
+                      utilsScript={'assets/libphonenumber.js'} />
+        <div>Phone Number: {this.state[1]}</div>
       </div>
     );
   }
