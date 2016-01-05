@@ -59,6 +59,11 @@ class IntlTelInputApp extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.tempCountry = this.props.defaultCountry;
+
+    this.dispatch = (action) => {
+      action.id = this.props.id;
+      this.props.dispatch(action);
+    }
   }
 
   static propTypes = {
@@ -119,7 +124,7 @@ class IntlTelInputApp extends Component {
       this.windowLoaded = true;
     };
 
-    this.props.dispatch(intlTelInputActions.getPropsData(this.props.defaultValue, this.props.countryCode, this.props.disabled));
+    this.dispatch(intlTelInputActions.getPropsData(this.props.defaultValue, this.props.countryCode, this.props.disabled));
 
     this.initRequests();
 
@@ -786,7 +791,7 @@ class IntlTelInputApp extends Component {
     if (!this.props.intlTelInputData.countryList.showDropdown &&
         !this.props.intlTelInputData.telInput.disabled &&
         !this.props.intlTelInputData.telInput.readonly) {
-      this.props.dispatch(intlTelInputActions.clickSelectedFlag(true,
+      this.dispatch(intlTelInputActions.clickSelectedFlag(true,
                                                                 utils.offset(findDOMNode(this.refs.telInput)).top,
                                                                 utils.getOuterHeight(findDOMNode(this.refs.telInput))
                                                                ));
@@ -820,7 +825,7 @@ class IntlTelInputApp extends Component {
       formatted = val;
     }
 
-    this.props.dispatch(intlTelInputActions.updateVal(false, formatted));
+    this.dispatch(intlTelInputActions.updateVal(false, formatted));
   }
 
   // called when the user selects a list item from the dropdown
@@ -828,7 +833,7 @@ class IntlTelInputApp extends Component {
     this.selectedCountryData = (countryCode) ? utils.getCountryData(countryCode, false, this.props.noCountryDataHandler) : {};
 
     // update selected flag and active list item
-    this.props.dispatch(intlTelInputActions.selectFlag(false, countryCode));
+    this.dispatch(intlTelInputActions.selectFlag(false, countryCode));
 
     this.updatePlaceholder();
 
@@ -856,7 +861,7 @@ class IntlTelInputApp extends Component {
         // newCursorPos is current pos + 1 to account for the plus we are about to add
         let newCursorPos = (this.isGoodBrowser) ? input.selectionStart + 1 : 0;
 
-        this.props.dispatch(intlTelInputActions.ensurePlus('+' + val));
+        this.dispatch(intlTelInputActions.ensurePlus('+' + val));
 
         if (this.isGoodBrowser) {
           input.setSelectionRange(newCursorPos, newCursorPos);
@@ -879,7 +884,7 @@ class IntlTelInputApp extends Component {
       this.handleEnterKey();
     } else if (e.which === this.keys.ESC) {
       // esc to close
-      this.props.dispatch(intlTelInputActions.handleDocumentKeydown(false));
+      this.dispatch(intlTelInputActions.handleDocumentKeydown(false));
     } else if ((e.which >= this.keys.A && e.which <= this.keys.Z) || e.which === this.keys.SPACE) {
       // upper case letters (note: keyup/keydown only return upper case letters)
       // jump to countries that start with the query string
@@ -900,7 +905,7 @@ class IntlTelInputApp extends Component {
   }
 
   handleDocumentClick() {
-    this.props.dispatch(intlTelInputActions.handleDocumentClick(false));
+    this.dispatch(intlTelInputActions.handleDocumentClick(false));
   }
 
   // find the first list item whose name starts with the query string
@@ -913,7 +918,7 @@ class IntlTelInputApp extends Component {
         let selectedIndex = utils.retrieveLiIndex(listItem);
 
         // update highlighting and scroll
-        this.props.dispatch(intlTelInputActions.searchForCountry(true, selectedIndex));
+        this.dispatch(intlTelInputActions.searchForCountry(true, selectedIndex));
         this.scrollTo(listItem, true);
         break;
       }
@@ -927,13 +932,13 @@ class IntlTelInputApp extends Component {
       let selectedIndex = utils.retrieveLiIndex(current);
       let countryCode = current.getAttribute('data-country-code');
 
-      this.props.dispatch(intlTelInputActions.handleEnterKey(false, selectedIndex, countryCode));
+      this.dispatch(intlTelInputActions.handleEnterKey(false, selectedIndex, countryCode));
       this.selectFlag(this.props.intlTelInputData.countryCode);
     }
   }
 
   toggleDropdown(status) {
-    this.props.dispatch(intlTelInputActions.toggleDropdown(!!status));
+    this.dispatch(intlTelInputActions.toggleDropdown(!!status));
   }
 
   // highlight the next/prev item in the list (and ensure it is visible)
@@ -950,17 +955,17 @@ class IntlTelInputApp extends Component {
       this.scrollTo(next);
 
       let selectedIndex = utils.retrieveLiIndex(next);
-      this.props.dispatch(intlTelInputActions.handleUpDownKey(true, selectedIndex));
+      this.dispatch(intlTelInputActions.handleUpDownKey(true, selectedIndex));
     }
   }
 
   handleInputChange() {
-    this.props.dispatch(intlTelInputActions.handleInputChange(findDOMNode(this.refs.telInput).value));
+    this.dispatch(intlTelInputActions.handleInputChange(findDOMNode(this.refs.telInput).value));
   }
 
   render() {
-    const { dispatch, intlTelInputData } = this.props;
-    const actions = bindActionCreators(intlTelInputActions, dispatch);
+    const { intlTelInputData } = this.props;
+    const actions = bindActionCreators(intlTelInputActions, this.dispatch);
 
     let wrapperClass = this.props.css[0],
         inputClass = this.props.css[1];
@@ -995,9 +1000,9 @@ class IntlTelInputApp extends Component {
   }
 }
 
-function select(state) {
+function select(state, props) {
   return {
-    intlTelInputData: state.intlTelInputData
+    intlTelInputData: state.intlTelInputData[props.id]
   };
 }
 

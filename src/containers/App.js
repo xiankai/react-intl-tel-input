@@ -36,7 +36,8 @@ class IntlTelInput extends Component {
   render() {
     return (
       <Provider store={store}>
-        <IntlTelInputApp value={this.props.value}
+        <IntlTelInputApp id={this.props.id}
+                         value={this.props.value}
                          defaultValue={this.props.defaultValue}
                          disabled={this.props.disabled}
                          onPhoneNumberChange={this.props.onPhoneNumberChange}
